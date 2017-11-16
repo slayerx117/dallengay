@@ -4,6 +4,7 @@
       <div id="dallen">
         <img id="dallenimg" src="dallengay.png" style="position: absolute;">
       </div>
+      <div> made by <a href= "http://github.com/slayerx117" onkeyup="">ben davis</a> </div>
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script>
       $(document).ready(function(){
@@ -18,8 +19,7 @@
         var t = 0
         var t_ = 0
         var r = (w < h ? w:h) *.3
-        var p = createQs(9)
-        console.log(p)
+        var p = createQs(13)
         for (var key in p) {
           if (p.hasOwnProperty(key)) {
             $(document.body).append(p[key])
@@ -33,7 +33,7 @@
           $("#dallenimg").css("top", pos["top"] - $("#dallenimg").height()/2);$("#dallenimg").css("left", pos["left"] - $("#dallenimg").width()/2)
           for (var key in p) {
             if (p.hasOwnProperty(key)) {
-              p[key].css("transform", "rotate("+ Math.cos(t)*10 + "deg)")
+              p[key].css("transform", "rotate("+ Math.sin(t)*10 + "deg)")
             }
           }
           $("#dallenimg").css("transform", "rotate("+ Math.sin(t)*10 + "deg)")
@@ -43,12 +43,10 @@
             if (p.hasOwnProperty(key)) {
               p[key].css("left", (Math.cos(t_)*r) + pos["left"])
               p[key].css("top", (Math.sin(t_)*r) + pos["top"])
+              p[key].css("height", + Math.abs( key%2 ==0 ? Math.sin(t)*100 : Math.cos(t)*100)+10 + "px")
             }
           }
-
-          // blueQ.css("left", x + "px")
-          // blueQ.css("top", y + "px")
-        }, 10)
+        }, 12)
       })
       function dist(x1,y1,x2,y2){
         var a = parseInt(x1) - parseInt(x2)
