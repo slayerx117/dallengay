@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <body style="width:100%;height:100%;">
+      <div id="dallen">
+        <img id="dallenimg" src="dallengay.png" style="position: absolute;">
+      </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script>
+      $(document).ready(function(){
+        var h = window.innerHeight
+        var w = window.innerWidth
+        var x = 0
+        var y = 0
+        var pos = {
+            "top": window.innerHeight/2,
+            "left": window.innerWidth/2
+        }
+        var t = 0
+        var t_ = 0
+        var r = (w < h ? w:h) *.3
+        var p = createQs(9)
+        console.log(p)
+        for (var key in p) {
+          if (p.hasOwnProperty(key)) {
+            $(document.body).append(p[key])
+          }
+        }
+        setInterval(function(){
+          t+=.015
+          if(t == 361) t = 0
+          x = (Math.cos(t)*r) + pos["left"]
+          y = (Math.sin(t)*r) + pos["top"]
+          $("#dallenimg").css("top", pos["top"] - $("#dallenimg").height()/2);$("#dallenimg").css("left", pos["left"] - $("#dallenimg").width()/2)
+          for (var key in p) {
+            if (p.hasOwnProperty(key)) {
+              p[key].css("transform", "rotate("+ Math.cos(t)*10 + "deg)")
+            }
+          }
+          $("#dallenimg").css("transform", "rotate("+ Math.sin(t)*10 + "deg)")
+          t_ = t
+          for (var key in p) {
+            t_+=2*Math.PI/Object.keys(p).length
+            if (p.hasOwnProperty(key)) {
+              p[key].css("left", (Math.cos(t_)*r) + pos["left"])
+              p[key].css("top", (Math.sin(t_)*r) + pos["top"])
+            }
+          }
+
+          // blueQ.css("left", x + "px")
+          // blueQ.css("top", y + "px")
+        }, 10)
+      })
+      function dist(x1,y1,x2,y2){
+        var a = parseInt(x1) - parseInt(x2)
+        var b = parseInt(y1) - parseInt(y2)
+        return Math.sqrt( a*a + b*b )
+      }
+      function createQs(num){
+        var qObj = {}
+        for(var i = 0; i <= num; i++){
+          qObj[i] = $((document).createElement("img"))
+          if(i % 2 == 0)$(qObj[i]).attr("src", "redq.png")
+          else{qObj[i].attr("src", "blueq.png")}
+          qObj[i].css("position", "absolute")
+          qObj[i].attr("height", "100px")
+          qObj[i].attr("width", "auto")
+          qObj[i].attr("id", "q" + i)
+      }
+      return qObj
+    }
+      </script>
+  </body>
+</html>
